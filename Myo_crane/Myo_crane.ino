@@ -23,14 +23,16 @@ Servo myservo;  // create servo object to control a servo
                 // twelve servo objects can be created on most boards
 
 int pos = 0;    // variable to store the servo position
-int motorPin = 3;
+int forward = 10;
+int backward = 11;
 
 void setup()
 {
   myservo.attach(9);  // attaches the servo on pin 9 to the servo object
  myservo.write(90);
 
- 
+  pinMode(forward, OUTPUT);
+  pinMode(backward, OUTPUT);
   pinMode(FIST_PIN, OUTPUT);
   pinMode(WAVEIN_PIN, OUTPUT);
   pinMode(WAVEOUT_PIN, OUTPUT);
@@ -52,17 +54,20 @@ void loop()
       digitalWrite(WAVEOUT_PIN,LOW);
       digitalWrite(FINGERSSPREAD_PIN,LOW);
       digitalWrite(DOUBLETAP_PIN,LOW);
-      analogWrite(motorPin, 0);
+      analogWrite(forward, 0);
+      analogWrite(backward, 0);
       break;
       
     case fist:
       digitalWrite(FIST_PIN,HIGH);  //Pick the weight up
-      analogWrite(motorPin, 0);
+      analogWrite(forward, 255);
+      analogWrite(backward, 0);
       break;
       
     case waveIn:
       digitalWrite(WAVEIN_PIN,HIGH); //Rotate left at max 90 degrees
-      analogWrite(motorPin, 0);
+      analogWrite(forward, 0);
+      analogWrite(backward, 0);
       if (pos < 180){
         myservo.write(pos+=1);     
         delay(15);} 
@@ -70,7 +75,8 @@ void loop()
       
     case waveOut:
       digitalWrite(WAVEOUT_PIN,HIGH); //Rotate right at max 90 degrees
-      analogWrite(motorPin, 0);
+      analogWrite(forward, 0);
+      analogWrite(backward, 0);
       if (pos > 0){
         myservo.write(pos-=1);     
         delay(15);} 
@@ -78,13 +84,15 @@ void loop()
       
     case fingersSpread:
       digitalWrite(FINGERSSPREAD_PIN,HIGH); //Drop the weight down
-      analogWrite(motorPin, 200);
+      analogWrite(forward, 0);
+      analogWrite(backward, 255);
       //delay(2000);
       break;
       
     case doubleTap:
       digitalWrite(DOUBLETAP_PIN,HIGH); //
-      analogWrite(motorPin, 0);
+      analogWrite(forward, 0);
+      analogWrite(backward, 0);
       if (pos!=90){
         if (pos > 90)
         {
