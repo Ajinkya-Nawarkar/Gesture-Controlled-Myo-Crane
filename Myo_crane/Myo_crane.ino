@@ -54,47 +54,52 @@ void loop()
       digitalWrite(DOUBLETAP_PIN,LOW);
       analogWrite(motorPin, 0);
       break;
+      
     case fist:
       digitalWrite(FIST_PIN,HIGH);  //Pick the weight up
       analogWrite(motorPin, 0);
       break;
+      
     case waveIn:
-      digitalWrite(WAVEIN_PIN,HIGH);
+      digitalWrite(WAVEIN_PIN,HIGH); //Rotate left at max 90 degrees
       analogWrite(motorPin, 0);
       if (pos < 180){
         myservo.write(pos+=1);     
         delay(15);} 
       break;
+      
     case waveOut:
-      digitalWrite(WAVEOUT_PIN,HIGH);
+      digitalWrite(WAVEOUT_PIN,HIGH); //Rotate right at max 90 degrees
       analogWrite(motorPin, 0);
       if (pos > 0){
         myservo.write(pos-=1);     
         delay(15);} 
       break;
+      
     case fingersSpread:
       digitalWrite(FINGERSSPREAD_PIN,HIGH); //Drop the weight down
       analogWrite(motorPin, 200);
       //delay(2000);
       break;
+      
     case doubleTap:
-      digitalWrite(DOUBLETAP_PIN,HIGH);
+      digitalWrite(DOUBLETAP_PIN,HIGH); //
       analogWrite(motorPin, 0);
       if (pos!=90){
         if (pos > 90)
         {
-          for(; pos>=90; pos-=1)     // goes from 180 degrees to 0 degrees
+          for(; pos>=90; pos-=1)     // goes from 180 degrees to 90 degrees
           {
             myservo.write(pos);              // tell servo to go to position in variable 'pos'
-            delay(5);                       // waits 15ms for the servo to reach the position
+            delay(5);                       // waits 5ms for the servo to reach the position
           }
          }
         else if (pos < 90)
         {
-          for(; pos<=90; pos+=1)     // goes from 180 degrees to 0 degrees
+          for(; pos<=90; pos+=1)     // goes from 90 degrees to 0 degrees
           {
             myservo.write(pos);              // tell servo to go to position in variable 'pos'
-            delay(5);                       // waits 15ms for the servo to reach the position
+            delay(5);                       // waits 5ms for the servo to reach the position
           }
          }
       }
