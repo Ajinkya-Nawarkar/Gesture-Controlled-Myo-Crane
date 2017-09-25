@@ -23,8 +23,8 @@ Servo myservo;  // create servo object to control a servo
                 // twelve servo objects can be created on most boards
 
 int pos = 0;    // variable to store the servo position
-int forward = 10;
-int backward = 11;
+int forward = 12;
+int backward = 13;
 
 void setup()
 {
@@ -62,6 +62,7 @@ void loop()
       digitalWrite(FIST_PIN,HIGH);  //Pick the weight up
       analogWrite(forward, 255);
       analogWrite(backward, 0);
+      myservo.write(pos);
       break;
       
     case waveIn:
@@ -86,6 +87,7 @@ void loop()
       digitalWrite(FINGERSSPREAD_PIN,HIGH); //Drop the weight down
       analogWrite(forward, 0);
       analogWrite(backward, 255);
+      myservo.write(pos);
       //delay(2000);
       break;
       
